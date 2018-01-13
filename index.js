@@ -2,7 +2,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-var http= require('http')
+var http= require('http');
 
 const restService = express();
 
@@ -22,22 +22,30 @@ var options = {
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, response) {
+  var text = req.body.result.parameters.echoText;
   var speech = "No communication";
 
-  http.request(options, function(res){
-    var body='';
+  if(text === "base de données") {
+    http.request(options, function(res){
+      var body='';
+  
+      res.on('data', function(chunk){
+          body+=chunk;
+      });
+  
+      res.on('end', function(){
+          var price = JSON.parse(body);
+          speech = price.libelle;
+          return toDialogFlow(response, speech);
+          //console.log(price.id);
+      })
+  }).end(); 
+  }
+  else {
+    return toDialogFlow(response, speech);
+  }
 
-    res.on('data', function(chunk){
-        body+=chunk;
-    });
-
-    res.on('end', function(){
-        var price = JSON.parse(body);
-        speech = price.libelle;
-        return toDialogFlow(response, speech);
-        //console.log(price.id);
-    })
-}).end();  
+ 
     
 });
 
