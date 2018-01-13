@@ -11,16 +11,38 @@ restService.use(
   })
 );
 
+var options = {
+  host: '35.157.217.52',
+  port: 80,
+  path: '/rest/tranche/27',
+  method: 'GET'
+};
+
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
-  var speech =
-    req.body.result &&
+  var speech = 'Non connecté';
+/*    req.body.result &&
     req.body.result.parameters &&
     req.body.result.parameters.echoText
       ? req.body.result.parameters.echoText+" Je répète ce que tu dit ok Ok Okeeeeey"
-      : "Seems like some problem. Speak again.";
-  return res.json({
+      : "Seems like some problem. Speak again.";*/
+  
+      http.request(options, function(res){
+        var body='';
+    
+        res.on('data', function(chunk){
+            body+=chunk;
+        });
+    
+        res.on('end', function(){
+            var price = JSON.parse(body);
+            speech = price.libelle;
+           // console.log(price);
+        })
+    }).end();
+
+    return res.json({
     speech: speech,
     displayText: speech,
     source: "webhook-echo-sample"
