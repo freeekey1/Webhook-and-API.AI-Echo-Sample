@@ -21,7 +21,7 @@ var options = {
 
 restService.use(bodyParser.json());
 
-restService.post("/echo", function(req, res) {
+restService.post("/echo", function(req, response) {
   var speech = "No communication";
 
   http.request(options, function(res){
@@ -34,20 +34,11 @@ restService.post("/echo", function(req, res) {
     res.on('end', function(){
         var price = JSON.parse(body);
         speech = price.libelle;
+        return toDialogFlow(response, speech);
         //console.log(price.id);
-        return res.json({
-          speech: speech,
-          displayText: speech,
-          source: "webhook-echo-sample"
-        });
     })
 }).end();  
- /*   req.body.result &&
-    req.body.result.parameters &&
-    req.body.result.parameters.echoText
-      ? req.body.result.parameters.echoText+" Je répète ce que tu dit ok Ok Okeeeeey"
-      : "Seems like some problem. Speak again.";*/
-
+    
 });
 
 restService.post("/audio", function(req, res) {
@@ -221,3 +212,11 @@ restService.post("/slack-test", function(req, res) {
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
 });
+function toDialogFlow(res, speech) {
+    return res.json({
+    speech: speech,
+    displayText: speech,
+    source: "webhook-echo-sample"
+});
+}
+
