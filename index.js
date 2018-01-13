@@ -35,6 +35,11 @@ restService.post("/echo", function(req, res) {
         var price = JSON.parse(body);
         speech = price.libelle;
         //console.log(price.id);
+        return res.json({
+          speech: speech,
+          displayText: speech,
+          source: "webhook-echo-sample"
+        });
     })
 }).end();  
  /*   req.body.result &&
@@ -42,11 +47,7 @@ restService.post("/echo", function(req, res) {
     req.body.result.parameters.echoText
       ? req.body.result.parameters.echoText+" Je répète ce que tu dit ok Ok Okeeeeey"
       : "Seems like some problem. Speak again.";*/
-  return res.json({
-    speech: speech,
-    displayText: speech,
-    source: "webhook-echo-sample"
-  });
+
 });
 
 restService.post("/audio", function(req, res) {
