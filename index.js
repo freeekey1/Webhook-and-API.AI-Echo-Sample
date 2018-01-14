@@ -22,10 +22,10 @@ var options = {
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, response) {
-  var text = req.body.result.parameters.echoText;
+  
   var speech = "No communication";
 
-  if(text === "base de données") {
+  if(req.body.result.parameters.echoText === "base de données") {
     http.request(options, function(res){
       var body='';
   
