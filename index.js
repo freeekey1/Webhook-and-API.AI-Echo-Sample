@@ -24,8 +24,15 @@ restService.use(bodyParser.json());
 restService.post("/echo", function(req, response) {
   
   var speech = "No communication";
-//req.body.result.parameters.echoText === 'base de données'
-  if(true) {
+ // req.body.result.parameters.echoText === 'base de données'
+ var text =
+ req.body.result &&
+ req.body.result.parameters &&
+ req.body.result.parameters.echoText
+   ? req.body.result.parameters.echoText
+: "Pas de connexion à la base de données";
+
+  if(text == 'base de données') {
     http.request(options, function(res){
       var body='';
   
