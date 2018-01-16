@@ -43,7 +43,7 @@ console.log(text);
       res.on('end', function(){
           var price = JSON.parse(body);
          // console.log(price);
-          speech = price;
+          speech = 'Il reste '+price+' appartements en stock';
           return toDialogFlow(response, speech);
           //console.log(price.id);
       })
