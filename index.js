@@ -43,7 +43,7 @@ console.log(text);
       res.on('end', function(){
           var price = JSON.parse(body);
          // console.log(price);
-          speech = price.libelle+'. '+price.description;
+          speech = price;
           return toDialogFlow(response, speech);
           //console.log(price.id);
       })
