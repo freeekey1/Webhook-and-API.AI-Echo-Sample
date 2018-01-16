@@ -12,27 +12,27 @@ restService.use(
   })
 );
 
+
+
 var options = {
-  host: '35.157.217.52',
+  host: '2cc3bd09.ngrok.io',
   port: 80,
-  path: '/rest/tranche/27',
+  path: '/dialogflow-api/rest/stock/5',
   method: 'GET'
 };
 
 restService.use(bodyParser.json());
 
-restService.post("/echo", function(req, response) {
-  
+restService.post("/echo", function(req, response) {  
   var speech = "No communication";
- // req.body.result.parameters.echoText === 'base de données'
- var text =
- req.body.result &&
- req.body.result.parameters &&
- req.body.result.parameters.echoText
-   ? req.body.result.parameters.echoText
-: "Pas de connexion à la base de données";
+  var text =req.body.result.parameters.projets;
+  var intent = req.body.result.metadata.intentName;
 
-  if(text == 'base de données') {
+console.log(text);
+
+  if(intent=='echo') {
+    options.path = '/dialogflow-api/rest/stock/'+text;
+    console.log(options.path);
     http.request(options, function(res){
       var body='';
   
@@ -42,7 +42,8 @@ restService.post("/echo", function(req, response) {
   
       res.on('end', function(){
           var price = JSON.parse(body);
-          speech = price.libelle;
+         // console.log(price);
+          speech = price.libelle+'. '+price.description;
           return toDialogFlow(response, speech);
           //console.log(price.id);
       })
@@ -51,10 +52,8 @@ restService.post("/echo", function(req, response) {
   else {
     return toDialogFlow(response, speech);
   }
-
- 
-    
 });
+
 
 restService.post("/audio", function(req, res) {
   var speech = "";
