@@ -15,9 +15,9 @@ restService.use(
 
 
 var options = {
-  host: '2cc3bd09.ngrok.io',
+  host: 'sample-env.pmwnts4ysf.eu-central-1.elasticbeanstalk.com',
   port: 80,
-  path: '/dialogflow-api/rest/stock/5',
+  path: '/rest/stock/5',
   method: 'GET'
 };
 
@@ -31,7 +31,7 @@ restService.post("/echo", function(req, response) {
 console.log(text);
 
   if(intent=='echo') {
-    options.path = '/dialogflow-api/rest/stock/'+text;
+    options.path = '/rest/stock/'+text;
     console.log(options.path);
     http.request(options, function(res){
       var body='';
