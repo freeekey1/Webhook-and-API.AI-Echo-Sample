@@ -51,7 +51,27 @@ console.log(intent);
   }).end(); 
   }
   else {
-    return toDialogFlow(response, speech);
+    if(intent=='nombreVentes')  {
+      options.path = '/rest/vente/'+text;
+      console.log(options.path);
+      http.request(options, function(res){
+        var body='';
+    
+        res.on('data', function(chunk){
+            body+=chunk;
+        });
+    
+        res.on('end', function(){
+            var price = JSON.parse(body);
+           // console.log(price);
+            speech = 'Le nombre de ventes est de '+price.nombreVente+' appartements';
+            return toDialogFlow(response, speech);
+            //console.log(price.id);
+        })
+    }).end(); 
+    }
+    else {
+    return toDialogFlow(response, speech);}
   }
 });
 
