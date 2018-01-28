@@ -28,7 +28,8 @@ restService.post("/echo", function(req, response) {
   var text =req.body.result.parameters.projets;
   var intent = req.body.result.metadata.intentName;
 
-console.log(text);
+//console.log(text);
+console.log(intent);
 
   if(intent=='echo' || intent=='AutreProjet') {
     options.path = '/rest/stock/'+text;
