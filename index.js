@@ -30,7 +30,7 @@ restService.post("/echo", function(req, response) {
 
 console.log(text);
 
-  if(intent=='echo') {
+  if(intent=='echo' || intent=='AutreProjet') {
     options.path = '/rest/stock/'+text;
     console.log(options.path);
     http.request(options, function(res){
