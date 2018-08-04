@@ -16,7 +16,7 @@ restService.use(
 
 var options = {
   //host: 'sample-env.pmwnts4ysf.eu-central-1.elasticbeanstalk.com',
-  host: 'immoflow-env-1.hhb2k2tyb3.eu-west-3.elasticbeanstalk.com,
+  host: 'immoflow-env-1.hhb2k2tyb3.eu-west-3.elasticbeanstalk.com',
   port: 80,
   path: '/rest/stock/5',
   method: 'GET'
